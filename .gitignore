@@ -1,0 +1,10 @@
+trained_models/
+results/
+results_inference/
+eval/ROIs/
+reid_features/
+.idea/
+
+*.pyc
+
+reid/reid_model/

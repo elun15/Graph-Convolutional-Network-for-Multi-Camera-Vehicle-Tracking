@@ -1,0 +1,111 @@
+COMMENT: name_in_here
+VISUALIZE: False
+
+#For testing only
+CUTTING: True
+PRUNING: True
+SPLITTING: True
+
+data_test: validation/S02
+input_test: mtsc
+file_test: mtsc_ssd512_tnt_roi_filt
+bs_test: 2000
+pre_computed_feats: True
+
+
+#For training and validation
+CNN_MODEL:
+    reid_model: './reid/reid_model/resnet101_ibn_a_2.pth'  # './reid/reid_model/resnet101_ibn_a_2.pth'
+    reid_backbone: resnet101_ibn_a #resnet101_ibn_a_imagenet   #'resnet101_ibn_a'
+    reid_size: [384,384]  #[384,384]  # [224,224] [128,256]
+    arch: resnet101 #resnet50 , bdnet_market, bdnet_cuhk, osnet_market, osnet_ms_c_d,resnext101_cars
+    L2norm: True
+    finetune: False
+
+
+DATASET:
+    root: /mnt/rhome/elg/Datasets/AIC21_Track3_MTMC_Tracking/
+    data_train: [S01, S03, S04]
+    data_val: [S02]
+    input: gt
+    imaug: True
+    mean: [0.485, 0.456, 0.406]
+    std: [0.229, 0.224, 0.225]
+
+
+TRAINING:
+    loss_name: CE_weighted # CE_weighted Focal BCE_weighted  BCE
+    add_FPR: True
+    FPR_alpha: 1
+    loss_weight: None
+    loss_weight_custom: True
+    bs_train: 100
+    bs_val: 150
+    epochs: 150
+    optimizer_type: SGD
+    lr: 0.01
+    weight_decay: 1.0e-4
+    momentum: 0.9
+
+    scheduler_type: STEP
+    step_size: 50
+    gamma: 0.1
+
+    warmup_enable: True
+    warm_up_epochs: 5
+    initial_lr: 0
+
+    only_appearance: False
+    only_dist: False
+
+
+
+DATALOADER:
+    NUM_WORKERS: 4
+    PIN_MEMORY: True
+
+
+GRAPH_NET_PARAMS:
+  node_agg_fn: 'sum'
+  num_enc_steps: 1  # before 4 Number of message passing steps
+  num_class_steps: 1  # before 3Number of message passing steps during feature vectors are classified (after Message Passing)
+  reattach_initial_nodes: False  # elg. Original: False Determines whether initially encoded node feats are used during node updates
+  reattach_initial_edges: False  #  elg. Original: TrueDetermines whether initially encoded edge feats are used during node updates
+
+  encoder_feats_dict:
+    edges:
+      edge_in_dim: 2 # elg: 2 if only appearance or only dist
+      edge_fc_dims: [4] #elg before [6]
+      edge_out_dim: 4 # elg: original = 16 ours 1 if not encoding
+
+    nodes:
+      resnet101:
+        #NODE FEATURES ENCODER
+        node_in_dim: 2048
+        node_fc_dims: [1024,512, 128]
+#        node_fc_dims: [128]
+        node_out_dim: 32
+        dropout_p: 0.1
+        use_batchnorm: True
+
+
+  # MPN EDGE UPDATE
+  edge_model_feats_dict:
+    fc_dims: [4] #  before 66,6elg: orig [80,16]In size is 4 * encoded nodes + 2 * encoded edges
+    dropout_p: 0.1
+    use_batchnorm: True
+
+ # MPN NODE UPDATE
+
+  node_model_feats_dict:
+    fc_dims: [32]  # elg: orig [56,32] In size is 2 * encoded nodes + 1 * encoded edges
+    dropout_p: 0.1
+    use_batchnorm: True
+
+  classifier_feats_dict:
+    edge_in_dim: 4 #orig 16
+    edge_fc_dims: [] # orig
+    edge_out_dim: 2
+    dropout_p: 0
+    use_batchnorm: False
+    is_classifier: True

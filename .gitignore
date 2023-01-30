@@ -4,7 +4,7 @@ results_inference/
 eval/ROIs/
 reid_features/
 .idea/
-
+ROIs/
 *.pyc
 
 reid/reid_model/

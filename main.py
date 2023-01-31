@@ -6,22 +6,14 @@
 import os
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 import time
-import shutil
-import yaml
-import datetime
 
-import matplotlib
 # matplotlib.use('tkAgg')
-import matplotlib.pyplot as plt
-import numpy as np
 
 import torch
 import argparse
 
-from torch.utils.data import DataLoader,Dataset
+from torch.utils.data import DataLoader
 
-
-from datasets import dataset
 from models.mpn import MOTMPNet
 
 import utils
@@ -31,11 +23,8 @@ from reid.extract_image_feat import ReidFeature
 from inference import inference, inference_precomputed_features
 
 import pathlib
-from libs import getConfiguration
-from eval import eval
-
-
-from ptflops import get_model_complexity_info
+from libs import getConfiguration, dataset
+import numpy as np
 
 
 def load_reid_model(CONFIG):
@@ -131,108 +120,108 @@ else:
     inference(CONFIG, loader, cnn_model, mpn_model)
 
 
-# np.savetxt(os.path.join(results_path,'mtmc_' + info_label + '.txt'), data_tracking.values, fmt='%d')
-#
-# if CONFIG['input_test'] == 'gt':
-#     P = torch.mean(torch.stack(P_list))
-#     R = torch.mean(torch.stack(R_list))
-#     F = torch.mean(torch.stack(F_list))
-#     TP =(torch.stack(TP_list))
-#     FP = (torch.stack(FP_list))
-#     FN = (torch.stack(FN_list))
-#     TN = (torch.stack(TN_list))
-#     RI = np.mean(np.asarray(rand_index))
-#     MI = np.mean(np.asarray(mutual_index))
-#     hom = np.mean(np.asarray(homogeneity))
-#     com = np.mean(np.asarray(completeness))
-#     v = np.mean(np.asarray(v_measure))
-#     prec0 = torch.mean(torch.stack(prec0))
-#     prec1 = torch.mean(torch.stack(prec1))
-#
-#     f = open(results_path + '/clustering_' + info_label +'.txt', "w")
-#     f.write('P= ' + str(P.item()) + '\n')
-#     f.write('R= ' + str(R.item()) + '\n')
-#     f.write('F= ' + str(F.item())+ '\n')
-#     f.write('TP= ' + str(TP.item())+ '\n')
-#     f.write('FP= ' + str(FP.item())+ '\n')
-#     f.write('FN= ' + str(FN.item())+ '\n')
-#     f.write('TN= ' + str(TN.item())+ '\n')
-#     f.write('Rand index mean = ' + str(RI) + '\n')
-#     f.write('Mutual index mean = ' + str(MI)+ '\n')
-#     f.write('homogeneity mean = ' + str(hom)+ '\n')
-#     f.write('completeness mean = ' + str(com)+ '\n')
-#     f.write('v_measure mean = ' + str(v)+ '\n')
-#     f.write('Mean prec 0 = ' + str(prec0.item())+ '\n')
-#     f.write('Mean prec 1 = ' + str(prec1.item())+ '\n')
-#
-#     f.close()
-#
-#
-#     print('P= '+ str(P.item()))
-#     print('R= '+ str(R.item()))
-#     print('F= '+ str(F.item()))
-#     print('TP= ' + str(TP.item()))
-#     print('FP= ' + str(FP.item()))
-#     print('FN= ' + str(FN.item()))
-#     print('TN= '+ str(TN.item()))
-#     print('Rand index mean = ' + str(RI))
-#     print( 'Mutual index mean = ' + str(MI) )
-#     print( 'homogeneity mean = ' + str(hom) )
-#     print( 'completeness mean = ' + str(com) )
-#     print( 'v_measure mean = ' + str(v) )
-#     print('Mean prec 0 = ' + str(prec0.item()) )
-#     print('Mean prec 1 = ' + str(prec1.item()) )
-#
-# if CONFIG['data_test'] == 'validation/S02':
-#     test = eval.readData('./eval/ground_truth_S02.txt')
-#     pred = data_tracking.values
-#     # pred = eval.readData(os.path.join(results_path, 'mtmc_' + info_label + '.txt'))
-#
-#
-#     flag_eval_center = True
-#     if flag_eval_center:
-#         W = 1920
-#         H = 1080
-#         p = 0.1
-#
-#         ###  GT
-#         cond1 = (W * p <= test['X'].values + (test['Width'].values / 2))
-#         cond2 = test['X'].values + (test['Width'].values / 2) <= W - W * p
-#
-#         idx_x = np.logical_and(cond1, cond2)
-#
-#         cond1 = (H * p <= test['Y'].values + test['Height'].values)
-#         cond2 = test['Y'].values + test['Height'].values <= H - H * p
-#         idx_h = np.logical_and(cond1, cond2)
-#
-#         idx = np.logical_and(idx_x, idx_h)
-#
-#         test = test[idx]
-#
-#         ###  PREDICTIONS
-#
-#         cond1 = (W * p <= pred['X'].values + (pred['Width'].values / 2))
-#         cond2 = pred['X'].values + (pred['Width'].values / 2) <= W - W * p
-#
-#         idx_x = np.logical_and(cond1, cond2)
-#
-#         cond1 = (H * p <= pred['Y'].values + pred['Height'].values)
-#         cond2 = pred['Y'].values + pred['Height'].values <= H - H * p
-#         idx_h = np.logical_and(cond1, cond2)
-#
-#         idx = np.logical_and(idx_x, idx_h)
-#
-#         pred = pred[idx]
-#
-#
-#     summary,th = eval.eval(test, pred, mread=False, dstype=os.path.split(CONFIG['data_test'])[0], roidir='ROIs', th=0.75)
-#     eval.print_results(summary, mread=False)
-#
-#
-#     if flag_eval_center:
-#         summary.to_excel(os.path.join(results_path,  'center_iou_'+ str(th) + '_mtmc_' + info_label + '.xls'),index=False)
-#     else:
-#         summary.to_excel(os.path.join(results_path,  'iou_'+ str(th) + '_mtmc_' + info_label + '.xls'),index=False)
-#     summary.to_csv(os.path.join(results_path,  'metrics_' + 'mtmc_' + info_label + '.csv'),index=False)
-#
+np.savetxt(os.path.join(results_path,'mtmc_' + info_label + '.txt'), data_tracking.values, fmt='%d')
+
+if CONFIG['input_test'] == 'gt':
+    P = torch.mean(torch.stack(P_list))
+    R = torch.mean(torch.stack(R_list))
+    F = torch.mean(torch.stack(F_list))
+    TP =(torch.stack(TP_list))
+    FP = (torch.stack(FP_list))
+    FN = (torch.stack(FN_list))
+    TN = (torch.stack(TN_list))
+    RI = np.mean(np.asarray(rand_index))
+    MI = np.mean(np.asarray(mutual_index))
+    hom = np.mean(np.asarray(homogeneity))
+    com = np.mean(np.asarray(completeness))
+    v = np.mean(np.asarray(v_measure))
+    prec0 = torch.mean(torch.stack(prec0))
+    prec1 = torch.mean(torch.stack(prec1))
+
+    f = open(results_path + '/clustering_' + info_label +'.txt', "w")
+    f.write('P= ' + str(P.item()) + '\n')
+    f.write('R= ' + str(R.item()) + '\n')
+    f.write('F= ' + str(F.item())+ '\n')
+    f.write('TP= ' + str(TP.item())+ '\n')
+    f.write('FP= ' + str(FP.item())+ '\n')
+    f.write('FN= ' + str(FN.item())+ '\n')
+    f.write('TN= ' + str(TN.item())+ '\n')
+    f.write('Rand index mean = ' + str(RI) + '\n')
+    f.write('Mutual index mean = ' + str(MI)+ '\n')
+    f.write('homogeneity mean = ' + str(hom)+ '\n')
+    f.write('completeness mean = ' + str(com)+ '\n')
+    f.write('v_measure mean = ' + str(v)+ '\n')
+    f.write('Mean prec 0 = ' + str(prec0.item())+ '\n')
+    f.write('Mean prec 1 = ' + str(prec1.item())+ '\n')
+
+    f.close()
+
+
+    print('P= '+ str(P.item()))
+    print('R= '+ str(R.item()))
+    print('F= '+ str(F.item()))
+    print('TP= ' + str(TP.item()))
+    print('FP= ' + str(FP.item()))
+    print('FN= ' + str(FN.item()))
+    print('TN= '+ str(TN.item()))
+    print('Rand index mean = ' + str(RI))
+    print( 'Mutual index mean = ' + str(MI) )
+    print( 'homogeneity mean = ' + str(hom) )
+    print( 'completeness mean = ' + str(com) )
+    print( 'v_measure mean = ' + str(v) )
+    print('Mean prec 0 = ' + str(prec0.item()) )
+    print('Mean prec 1 = ' + str(prec1.item()) )
+
+if CONFIG['data_test'] == 'validation/S02':
+    test = eval.readData('./eval/ground_truth_S02.txt')
+    pred = data_tracking.values
+    # pred = eval.readData(os.path.join(results_path, 'mtmc_' + info_label + '.txt'))
+
+
+    flag_eval_center = True
+    if flag_eval_center:
+        W = 1920
+        H = 1080
+        p = 0.1
+
+        ###  GT
+        cond1 = (W * p <= test['X'].values + (test['Width'].values / 2))
+        cond2 = test['X'].values + (test['Width'].values / 2) <= W - W * p
+
+        idx_x = np.logical_and(cond1, cond2)
+
+        cond1 = (H * p <= test['Y'].values + test['Height'].values)
+        cond2 = test['Y'].values + test['Height'].values <= H - H * p
+        idx_h = np.logical_and(cond1, cond2)
+
+        idx = np.logical_and(idx_x, idx_h)
+
+        test = test[idx]
+
+        ###  PREDICTIONS
+
+        cond1 = (W * p <= pred['X'].values + (pred['Width'].values / 2))
+        cond2 = pred['X'].values + (pred['Width'].values / 2) <= W - W * p
+
+        idx_x = np.logical_and(cond1, cond2)
+
+        cond1 = (H * p <= pred['Y'].values + pred['Height'].values)
+        cond2 = pred['Y'].values + pred['Height'].values <= H - H * p
+        idx_h = np.logical_and(cond1, cond2)
+
+        idx = np.logical_and(idx_x, idx_h)
+
+        pred = pred[idx]
+
+
+    summary,th = eval.eval(test, pred, mread=False, dstype=os.path.split(CONFIG['data_test'])[0], roidir='ROIs', th=0.75)
+    eval.print_results(summary, mread=False)
+
+
+    if flag_eval_center:
+        summary.to_excel(os.path.join(results_path,  'center_iou_'+ str(th) + '_mtmc_' + info_label + '.xls'),index=False)
+    else:
+        summary.to_excel(os.path.join(results_path,  'iou_'+ str(th) + '_mtmc_' + info_label + '.xls'),index=False)
+    summary.to_csv(os.path.join(results_path,  'metrics_' + 'mtmc_' + info_label + '.csv'),index=False)
+
 a=1

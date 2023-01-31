@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-dataset_path = '/mnt/rhome/elg/Datasets/AIC21_Track3_MTMC_Tracking/'
+dataset_path = '../datasets/aic19-track1-mtmc/'
 mode= 'validation' #'test'
 scene = 'S02'
 input= 'det'
@@ -37,7 +37,7 @@ if  scene == 'S02':
         seq_path = os.path.join(dataset_path, mode, scene, c)
         mtsc_file_path = os.path.join(seq_path, input, file + '.txt')
 
-        roi_path = os.path.join('./../ROIs',mode, c, 'roi.jpg')
+        roi_path = os.path.join('../ROIs', mode, c, 'roi.jpg')
         det = pd.read_csv(mtsc_file_path, header=None, sep=" ")
         det = det[det.columns[:len(COL_NAMES_AIC)]]
         det.columns = COL_NAMES_AIC[0:len(det.columns)]

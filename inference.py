@@ -16,7 +16,6 @@ from sklearn.metrics.pairwise import paired_distances
 from sklearn import metrics
 import utils
 from torch_geometric.utils import to_networkx
-import dtw
 list_cam_colors = list(['royalblue', 'darkorange','green','firebrick'])
 
 

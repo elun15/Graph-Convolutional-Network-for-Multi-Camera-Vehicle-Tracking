@@ -108,8 +108,8 @@ if __name__ == '__main__':
     model =  'tr_S01-S03-S04_val_S02_resnet101_ibn_a_2_weight_custom_SGD_lr_0.01_BS_100_150_L_1_RandCrop_0510_0713__2022-05-10 12:51:17'
     scene = 'S02' #'test'
     file_mtmc = 'mtmc_S02_mtsc_ssd512_tnt_roi_filt_bs2000_cut_T_prun_T_split_T'
-    mtmc_path = '/mnt/rhome/elg/Repositories/GNN-MTMC-Tracking/results/' + model
-    data_path = '/mnt/rhome/elg/Datasets/AIC21_Track3_MTMC_Tracking/' + mode + '/' + scene +'/'
+    mtmc_path = '/../results/' + model
+    data_path = '/../datasets/aic19-track1-mtmc/' + mode + '/' + scene +'/'
 
     if mode  == 'validation':
         output_dir = os.path.join(mtmc_path, 'vis-img1-gt-' + file_mtmc)

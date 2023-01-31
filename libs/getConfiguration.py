@@ -2,12 +2,11 @@ import yaml
 import os
 
 """
-Video Action Classification
-
 getConfiguration.py
 Utils to read and update CONFIG files
 
 Fully developed by Alejandro López-Cifuentes
+adapted by Elena Luna
 """
 
 
@@ -60,38 +59,6 @@ def getConfiguration(args):
 
     """
 
-    # default_CONFIG = yaml.safe_load(open(os.path.join('Config', 'config_default.yaml'), 'r'))
-
-    # Check arguments for default configuration
-    # if args.Dataset is None:
-    #     args.Dataset = default_CONFIG['DEFAULT']['DATASET']
-    # if args.Architecture is None:
-    #     args.Architecture = default_CONFIG['DEFAULT']['ARCHITECTURE']
-    # if args.Training is None:
-    #     args.Training = default_CONFIG['DEFAULT']['TRAINING']
-    # if args.Distillation is None:
-    #     args.Distillation = default_CONFIG['DEFAULT']['DISTILLATION']
-
-    # ----------------------------- #
-    #      Dataset Configuration    #
-    # ----------------------------- #
-    # dataset_CONFIG = yaml.safe_load(open(os.path.join('Config', 'Dataset', 'config_' + args.Dataset + '.yaml'), 'r'))
-
-    # ----------------------------- #
-    #   Architecture Configuration  #
-    # ----------------------------- #
-    # architecture_CONFIG = yaml.safe_load(open(os.path.join('Config', 'Architecture', 'config_' + args.Architecture + '.yaml'), 'r'))
-
-    # ----------------------------- #
-    #    Training Configuration     #
-    # ----------------------------- #
-    # training_CONFIG = yaml.safe_load(open(os.path.join('Config', 'Training', 'config_' + args.Training + '.yaml'), 'r'))
-
-    # ----------------------------- #
-    #   Distillation Configuration  #
-    # ----------------------------- #
-    # distillation_CONFIG = yaml.safe_load(open(os.path.join('Config', 'Distillation', 'config_' + args.Distillation + '.yaml'), 'r'))
-
     # ----------------------------- #
     #      MAIN Configuration    #
     # ----------------------------- #
@@ -107,20 +74,8 @@ def getConfiguration(args):
         for option in NewOptions:
             new_key, new_value = option.split('=')
 
-            # dataset_CONFIG= updateConfig(dataset_CONFIG, new_key, new_value)
-            # architecture_CONFIG = updateConfig(architecture_CONFIG, new_key, new_value)
-            # training_CONFIG = updateConfig(training_CONFIG, new_key, new_value)
-            # distillation_CONFIG = updateConfig(distillation_CONFIG, new_key, new_value)
             CONFIG = updateConfig(CONFIG, new_key, new_value)
 
-    # ----------------------------- #
-    #      Full Configuration       #
-    # ----------------------------- #
-    # CONFIG = dict()
-    # CONFIG.update(dataset_CONFIG)
-    # CONFIG.update(architecture_CONFIG)
-    # CONFIG.update(training_CONFIG)
-    # CONFIG.update(distillation_CONFIG)
 
     return CONFIG # dataset_CONFIG, architecture_CONFIG, training_CONFIG, distillation_CONFIG
 

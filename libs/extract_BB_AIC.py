@@ -93,7 +93,7 @@ def  process(data_path, input, file):
 
 
 if __name__ == '__main__':
-    data_path = './../../../Datasets/AIC21_Track3_MTMC_Tracking/validation/S02/'
+    data_path = '../datasets/aic19-track1-mtmc/validation/S02/'
     input = 'mtsc'
     #  example files = ['mtsc_deepsort_ssd512', 'mtsc_moana_mask_rcnn',
     #               'mtsc_moana_ssd512', 'mtsc_moana_yolo3',

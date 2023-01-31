@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-dataset_path = './../../../Datasets/AIC21_Track3_MTMC_Tracking/'
+dataset_path = '../datasets/aic19-track1-mtmc/'
 mode= 'validation' #'test'
 scene = 'S02'
 input= 'mtsc'
@@ -164,7 +164,7 @@ if  scene == 'S02':
         seq_path = os.path.join(dataset_path, mode, scene, c)
         mtsc_file_path = os.path.join(seq_path, input, file + '.txt')
 
-        roi_path = os.path.join('./../ROIs',mode, c, 'roi.jpg')
+        roi_path = os.path.join('../ROIs', mode, c, 'roi.jpg')
         mtsc = pd.read_csv(mtsc_file_path, header=None, sep=",")
         mtsc = mtsc[mtsc.columns[:len(COL_NAMES_AIC)]]
         mtsc.columns = COL_NAMES_AIC[0:len(mtsc.columns)]
@@ -200,7 +200,7 @@ if  scene == 'S05':
         seq_path = os.path.join(dataset_path, mode, scene, c)
         mtsc_file_path = os.path.join(seq_path, input, file + '.txt')
 
-        roi_path = os.path.join('./../ROIs',mode, c, 'roi.jpg')
+        roi_path = os.path.join('../ROIs', mode, c, 'roi.jpg')
         mtsc = pd.read_csv(mtsc_file_path, header=None, sep=",")
         mtsc = mtsc[mtsc.columns[:len(COL_NAMES_AIC)]]
         mtsc.columns = COL_NAMES_AIC[0:len(mtsc.columns)]

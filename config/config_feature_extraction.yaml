@@ -6,7 +6,7 @@ DATASET:
 
 
 CNN_MODEL:
-    reid_model: ./reid/reid_model/resnet101_ibn_a_2.pth #'./reid/reid_model/resnet101_ibn_a_2.pth' resnet101_electricity.pth.tar-9
+    reid_model: ./../reid/reid_model/resnet101_ibn_a_2.pth #'./reid/reid_model/resnet101_ibn_a_2.pth' resnet101_electricity.pth.tar-9
     reid_backbone: 'resnet101_ibn_a' #'resnet101_ibn_a'
     reid_size: [384, 384] # [128,256] #
     arch: resnet101 #resnet50 , bdnet_market, bdnet_cuhk, osnet_market, osnet_ms_c_d,resnext101_cars

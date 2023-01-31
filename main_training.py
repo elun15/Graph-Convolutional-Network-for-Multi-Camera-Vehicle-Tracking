@@ -9,34 +9,24 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 import time
 import shutil
 import yaml
-import datetime
 
-import matplotlib
 # matplotlib.use('tkAgg')
-import matplotlib.pyplot as plt
 import numpy as np
-import cv2
-import pandas as pd
 import torch
 import argparse
 import torch.nn as nn
 
 from torch.utils.data import DataLoader
 
-from datasets import dataset
 from models.mpn import MOTMPNet
 
 
 import utils
-from sklearn.metrics.pairwise import paired_distances
-
 
 from train import train, validate
 from reid.extract_image_feat import ReidFeature
-from libs import getConfiguration
+from libs import getConfiguration, dataset
 import pathlib
-
-
 
 def load_reid_model(CONFIG):
     reid_model = ReidFeature(0, CONFIG)
@@ -61,7 +51,6 @@ def load_reid_model(CONFIG):
 
 
     return reid_model
-
 
 def load_model_mpn(CONFIG,weights_path=None):
     if weights_path is None:
@@ -184,8 +173,7 @@ else:
                                                num_workers=CONFIG['DATALOADER']['NUM_WORKERS'],collate_fn=my_collate,
                                                pin_memory=CONFIG['DATALOADER']['PIN_MEMORY'])
 
-
-## VALIDATION DATASETs
+## VALIDATION DATASETS
 
 val_datasets = []
 
@@ -217,8 +205,6 @@ else:
                                                     num_workers=CONFIG['DATALOADER']['NUM_WORKERS'],
                                                     collate_fn=my_collate,
                                                     pin_memory=CONFIG['DATALOADER']['PIN_MEMORY'])
-
-
 
 # LOAD MPN NETWORK#
 

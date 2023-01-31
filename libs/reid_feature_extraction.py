@@ -1,19 +1,14 @@
 import os
 import time
-import shutil
 import yaml
-import datetime
 
-import matplotlib
 # matplotlib.use('tkAgg')
-import matplotlib.pyplot as plt
 import numpy as np
-import cv2
 import pandas as pd
 import torch
 import argparse
 from reid.extract_image_feat import ReidFeature
-from datasets import dataset, transforms
+from libs import transforms
 import pathlib
 import pickle as pkl
 from torch.utils.data import Dataset
@@ -122,10 +117,9 @@ USE_CUDA = torch.cuda.is_available()
 
 
 if __name__ == '__main__':
-    dataset_root = './../../../Datasets/AIC21_Track3_MTMC_Tracking/'
+    dataset_root = '../datasets/aic19-track1-mtmc/'
     scene= 'validation/S02'
-    # files_test= ['mtsc_deepsort_ssd512', 'mtsc_moana_mask_rcnn',
-    #          'mtsc_moana_ssd512', 'mtsc_moana_yolo3',
+    # files_test= ['mtsc_deepsort_ssd512', 'mtsc_moana_mask_rcnn',     'mtsc_moana_ssd512', 'mtsc_moana_yolo3',
     #          'mtsc_tc_mask_rcnn', 'mtsc_tc_ssd512']
     # files_test = ['mtsc_tnt_mask_rcnn','mtsc_tnt_mask_rcnn_roi_zones_statics_filt']
 

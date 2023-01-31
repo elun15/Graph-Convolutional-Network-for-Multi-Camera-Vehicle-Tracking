@@ -2,9 +2,15 @@ trained_models/
 results/
 results_inference/
 eval/ROIs/
-reid_features/
+reid_features/validation/
 .idea/
 ROIs/
 *.pyc
 
-reid/reid_model/
+reid/reid_model/resnet101_ibn_a_2.pth
+reid/reid_model/resnet101_ibn_a_3.pth
+reid/reid_model/resnet101_electricity.pth.tar-9
+
+reid/reid_model/resnext101_ibn_a_2.pth
+
+

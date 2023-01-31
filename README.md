@@ -1,5 +1,7 @@
 
 
+
+
 # Graph-Convolutional-Network-for-Multi-Camera-Vehicle-Tracking
 
 ArXiv paper:  https://arxiv.org/pdf/2211.15538.pdf
@@ -53,56 +55,38 @@ To filter MOT by ROIs:
 ```
 python ./datasets/filter_mtmc.py
 ```
+**6. Extract and save ReID features (optional, to save computational time)**
 
-
-
-**5. Run** 
 ```
-python ./libs/preprocess_EPFL.py
+python ./datasets/reid_feature_extraction.py --ConfigPath ./config/config_feature_extraction.yaml
 ```
- in order to extract frame images. 
 
-**6. Ground-truth** 
-
- The EPFL GT (we already provide it, no need to download it)  can be found at [https://bitbucket.org/merayxu/multiview-object-tracking-dataset/src/master/](https://bitbucket.org/merayxu/multiview-object-tracking-dataset/src/master/). 
-
-
-**7. Download pre-trained REID models**
-
-  Download the pre-trained REID models from https://1drv.ms/u/s!AufOLvb5OB5fhx0os9hCDdkFfT6l?e=roljmV  , unzip the 4 folders and place them under *./trained_models/*
-
-**8. Download  a pre-trained GNN-CCA model**
-
-We provide the weights of the GNN trained on the S1 set (see paper for detailes).
-Download the pre-trained weights from https://1drv.ms/u/s!AufOLvb5OB5fhx7O9KIJDqKLj8Uu?e=hbyR7T and place the folder *GNN_S1_Resnet50MCD_SGD0005_cosine20_BS64_BCE_all_step_BNcls_L4_2021-11-10 19:01:49* under *./results/* folder.
-
-**9. Inference Running**
-
-To inference the previous model run:
+**5. Run Inference** 
+We provide the trained weights in HERE. Donwload it and place it under *./results/*.
+The inference of the model can be done running:
 ```
-python main.py --ConfigPath "config/config_inference.yaml"
+python main.py --Model "tr_S01-S03-S04_val_S02_resnet101_ibn_a_2_weight_custom_SGD_lr_0.01_BS_100_150_L_1_1FPR__2022-04-27 17-01-51" --Options data_test=validation/S02 input_test=mtsc file_test=mtsc_ssd512_tnt_roi_filt bs_test=2000 CUTTING=True PRUNING=True SPLITTING=True pre_computed_feats=True
 ```
+
 **10. Training**
 
 For training run:
 ```
-python main_training.py --ConfigPath "config/config_training.yaml"
+python main_training.py --Mode training
 ```
+
+(*./config/config_training.yaml* will be considered)
 
 
 ## Citation
 
 If you find this code and work useful, please consider citing:
 ```
-@ARTICLE{9893862,
-  author={Luna, Elena and SanMiguel, Juan C. and Martínez, José M. and Carballeira, Pablo},
-  journal={IEEE Transactions on Circuits and Systems for Video Technology}, 
-  title={Graph Neural Networks for Cross-Camera Data Association}, 
-  year={2022},
-  volume={},
-  number={},
-  pages={1-1},
-  doi={10.1109/TCSVT.2022.3207223}}
+@article{luna2022graph,
+  title={Graph Convolutional Network for Multi-Target Multi-Camera Vehicle Tracking},
+  author={Luna, Elena and Miguel, Juan Carlos San and Mart{\'\i}nez, Jos{\'e} Mar{\'\i}a and Escudero-Vi{\~n}olo, Marcos},
+  journal={arXiv preprint arXiv:2211.15538},
+  year={2022}
 }
 ```
 

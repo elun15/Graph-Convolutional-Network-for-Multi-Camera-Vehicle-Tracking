@@ -99,7 +99,7 @@ if __name__ == '__main__':
     #               'mtsc_moana_ssd512', 'mtsc_moana_yolo3',
     #               'mtsc_tc_mask_rcnn', 'mtsc_tc_ssd512', 'mtsc_BUPT21_filtered_roi_filt']
 
-    files = ['mtsc_deepsort_mask_rcnn_roi_filt']
+    files = ['mtsc_ssd512_tnt']
 
 
     for file in files:

@@ -31,8 +31,8 @@ conda activate env_gnn
 
 **3. Download AIC19 dataset**
 
-This repo is evaluated on  the <u>AI City Challenge 2019 dataset</u>. Trained in S01 and tested in S02 scenarios.
-Download the data from [https://www.aicitychallenge.org/track1-download/](https://www.aicitychallenge.org/track1-download/) and place the it under *./datasets/*.
+This repo is evaluated on  the <u>AI City Challenge 2021dataset</u>. Trained in */train/S01/* and tested in *validation/S02/* scenarios.
+Download the data from https://www.aicitychallenge.org/2021-track3-download/ and place the folder *AIC21_Track3_MTMC_Tracking/*  in *./datasets/*.
 
 
 **4. Download the vehicle ReID code**
@@ -45,20 +45,24 @@ From https://github.com/LCFractal/AIC21-MTMC, download the ReID model (resnet101
  
 **5. Prepare AIC19 dataset**
 
-Once downloaded the folder *aic19-track1-mtmc/*, preprocess the data by running the following (please note that the dataset path must be modified accordingly):
+Once downloaded the folder *AIC21_Track3_MTMC_Tracking/*, preprocess the data by running the following (**please note that the data path must be modified inside each file accordingly, by default *validation/S02* will be processed**):
 
 To extract frames' images from .avi videos:                                                                
 ```
-python ./datasets/preprocess_AIC.py
+python ./libs/preprocess_AIC.py
+```
+To extract and store BB images:                                                                
+```
+python ./libs/extract_BB_AIC.py
 ```
 To filter MOT by ROIs:
 ```
-python ./datasets/filter_mtmc.py
+python ./libs/filter_mtmc.py
 ```
 **6. Extract and save ReID features (optional, to save computational time)**
 
 ```
-python ./datasets/reid_feature_extraction.py --ConfigPath ./config/config_feature_extraction.yaml
+python ./li/reid_feature_extraction.py --ConfigPath ./config/config_feature_extraction.yaml
 ```
 
 **7. Run Inference** 

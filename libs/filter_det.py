@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-dataset_path = '../datasets/aic19-track1-mtmc/'
+dataset_path = '../datasets/AIC21_Track3_MTMC_Tracking/'
 mode= 'validation' #'test'
 scene = 'S02'
 input= 'det'

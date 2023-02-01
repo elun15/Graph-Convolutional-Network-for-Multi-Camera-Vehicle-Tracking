@@ -117,7 +117,7 @@ USE_CUDA = torch.cuda.is_available()
 
 
 if __name__ == '__main__':
-    dataset_root = '../datasets/aic19-track1-mtmc/'
+    dataset_root = '../datasets/AIC21_Track3_MTMC_Tracking/'
     scene= 'validation/S02'
     # files_test= ['mtsc_deepsort_ssd512', 'mtsc_moana_mask_rcnn',     'mtsc_moana_ssd512', 'mtsc_moana_yolo3',
     #          'mtsc_tc_mask_rcnn', 'mtsc_tc_ssd512']

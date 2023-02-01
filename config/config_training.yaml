@@ -24,7 +24,7 @@ CNN_MODEL:
 
 
 DATASET:
-    root: ./datasets/aic19-track1-mtmc/
+    root: ./datasets/AIC21_Track3_MTMC_Tracking/
     data_train: [S01, S03, S04]
     data_val: [S02]
     input: gt

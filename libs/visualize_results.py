@@ -109,7 +109,7 @@ if __name__ == '__main__':
     scene = 'S02' #'test'
     file_mtmc = 'mtmc_S02_mtsc_ssd512_tnt_roi_filt_bs2000_cut_T_prun_T_split_T'
     mtmc_path = '/../results/' + model
-    data_path = '/../datasets/aic19-track1-mtmc/' + mode + '/' + scene +'/'
+    data_path = '/../datasets/AIC21_Track3_MTMC_Tracking/' + mode + '/' + scene +'/'
 
     if mode  == 'validation':
         output_dir = os.path.join(mtmc_path, 'vis-img1-gt-' + file_mtmc)

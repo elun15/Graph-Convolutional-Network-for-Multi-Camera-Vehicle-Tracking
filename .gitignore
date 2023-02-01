@@ -3,7 +3,7 @@ results_inference/
 eval/ROIs/
 reid_features/validation/
 .idea/
-ROIs/
+
 *.pyc
 
 reid/reid_model/resnet101_ibn_a_2.pth

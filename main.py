@@ -44,8 +44,6 @@ def load_model_mpn(CONFIG,weights_path=None):
 def my_collate(batch):
 
     bboxes_batches = [item[0] for item in batch]
-
-
     return bboxes_batches
 
 
@@ -58,11 +56,9 @@ date = date = str(time.localtime().tm_year) + '-' + str(time.localtime().tm_mon)
        ' ' + str(time.localtime().tm_hour).zfill(2) + ':' + str(time.localtime().tm_min).zfill(2) + ':' + str(
     time.localtime().tm_sec).zfill(2)
 
-
 parser = argparse.ArgumentParser(description='')
 parser.add_argument('--Model', metavar='DIR', required=True, help='Model file path')
 parser.add_argument('--Options', metavar='DIR', nargs='*', help='an integer for the accumulator')
-
 
 # Decode CONFIG file information
 args = parser.parse_args()
@@ -85,7 +81,6 @@ if CONFIG['pre_computed_feats']:
     dataset = dataset.AIC_dataset_inference_precomputed_features(CONFIG['data_test'], CONFIG, cnn_model)
 else:
     dataset = dataset.AIC_dataset_inference(CONFIG['data_test'], CONFIG, cnn_model)
-
 
 
 loader = torch.utils.data.DataLoader(dataset, batch_size=int(CONFIG['bs_test']), shuffle=False,
@@ -173,7 +168,6 @@ if CONFIG['data_test'] == 'validation/S02':
     # pred = data_tracking.values
     pred = eval.readData(os.path.join(results_path, 'mtmc_' + info_label + '.txt'))
 
-
     flag_eval_center = True
     if flag_eval_center:
         W = 1920
@@ -209,15 +203,11 @@ if CONFIG['data_test'] == 'validation/S02':
 
         pred = pred[idx]
 
-
     summary,th = eval.eval(test, pred, mread=False, dstype=os.path.split(CONFIG['data_test'])[0], roidir='ROIs', th=0.75)
     eval.print_results(summary, mread=False)
-
 
     if flag_eval_center:
         summary.to_excel(os.path.join(results_path,  'center_iou_'+ str(th) + '_mtmc_' + info_label + '.xls'),index=False)
     else:
         summary.to_excel(os.path.join(results_path,  'iou_'+ str(th) + '_mtmc_' + info_label + '.xls'),index=False)
     summary.to_csv(os.path.join(results_path,  'metrics_' + 'mtmc_' + info_label + '.csv'),index=False)
-
-a=1

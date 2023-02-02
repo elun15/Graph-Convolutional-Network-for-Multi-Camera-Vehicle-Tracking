@@ -11,16 +11,12 @@ import time
 
 import torch
 import argparse
-
 from torch.utils.data import DataLoader
-
 from models.mpn import MOTMPNet
-
 import utils
-
 from reid.extract_image_feat import ReidFeature
-
 from inference import inference, inference_precomputed_features
+from eval import eval
 
 import pathlib
 from libs import getConfiguration, dataset
@@ -174,8 +170,8 @@ if CONFIG['input_test'] == 'gt':
 
 if CONFIG['data_test'] == 'validation/S02':
     test = eval.readData('./eval/ground_truth_S02.txt')
-    pred = data_tracking.values
-    # pred = eval.readData(os.path.join(results_path, 'mtmc_' + info_label + '.txt'))
+    # pred = data_tracking.values
+    pred = eval.readData(os.path.join(results_path, 'mtmc_' + info_label + '.txt'))
 
 
     flag_eval_center = True

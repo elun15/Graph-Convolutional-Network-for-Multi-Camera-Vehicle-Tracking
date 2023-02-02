@@ -15,7 +15,7 @@ dataset_path = '../datasets/AIC21_Track3_MTMC_Tracking/'
 mode= 'validation' #'test'
 scene = 'S02'
 input= 'mtsc'
-file = 'mtsc_ssd512_tnt' # 'mtsc_deepsort_mask_rcnn'
+file = 'mtsc_deepsort_ssd512' # 'mtsc_deepsort_mask_rcnn'
 
 COL_NAMES_AIC = ['frame', 'id', 'xmin', 'ymin', 'width', 'height', 'lost', 'occluded', 'generated','label']
 

@@ -31,7 +31,6 @@ def  process(data_path, input, file):
     for c in cameras:
 
             tStart = time.time()
-            print('Processing ' + c + '_ ' + str(file))
 
             frames_dir = os.path.join(data_path, c, 'img1')
             num_frames = len(os.listdir(frames_dir))
@@ -50,7 +49,7 @@ def  process(data_path, input, file):
             # length_ids = np.asarray([len(data[data['id'] == i]) for i in ids_unique])
 
             for f in frames_unique:
-                print('Processing frame ' + str(f) + '_ ' + str(file))
+                print('Processing frame ' + str(f) + '_ ' + str(file) + ' of camera ' + c)
                 data_f = data[data['frame']== f]
                 img = imread(os.path.join(frames_dir, str(f-1).zfill(6) + ".jpg"))
                 for row in range(0,data_f.shape[0]):
@@ -99,7 +98,7 @@ if __name__ == '__main__':
     #               'mtsc_moana_ssd512', 'mtsc_moana_yolo3',
     #               'mtsc_tc_mask_rcnn', 'mtsc_tc_ssd512', 'mtsc_BUPT21_filtered_roi_filt']
 
-    files = ['mtsc_ssd512_tnt']
+    files = ['mtsc_deepsort_ssd512']
 
 
     for file in files:

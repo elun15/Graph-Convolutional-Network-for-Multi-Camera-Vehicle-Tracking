@@ -1,4 +1,4 @@
-results/
+results/tr_S01-S03-S04_val_S02_resnet101_ibn_a_2_weight_custom_SGD_lr_0.01_BS_100_150_L_1_1FPR__2022-04-27 17-01-51
 results_inference/
 eval/ROIs/
 reid_features/validation/

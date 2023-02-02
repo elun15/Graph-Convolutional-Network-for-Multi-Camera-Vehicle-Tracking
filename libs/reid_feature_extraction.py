@@ -119,11 +119,9 @@ USE_CUDA = torch.cuda.is_available()
 if __name__ == '__main__':
     dataset_root = '../datasets/AIC21_Track3_MTMC_Tracking/'
     scene= 'validation/S02'
-    # files_test= ['mtsc_deepsort_ssd512', 'mtsc_moana_mask_rcnn',     'mtsc_moana_ssd512', 'mtsc_moana_yolo3',
-    #          'mtsc_tc_mask_rcnn', 'mtsc_tc_ssd512']
-    # files_test = ['mtsc_tnt_mask_rcnn','mtsc_tnt_mask_rcnn_roi_zones_statics_filt']
-
-    files_test = ['mtsc_ssd512_tnt_roi_filt']
+    # files_test= ['mtsc_deepsort_ssd512', 'mtsc_moana_mask_rcnn',     'mtsc_moana_ssd512', 'mtsc_moana_yolo3']
+    # files_test = ['mtsc_tnt_mask_rcnn']
+    files_test = ['mtsc_deepsort_ssd512']
 
 
     parser = argparse.ArgumentParser(description='REID features extraction from bboxes and saving')
@@ -150,8 +148,7 @@ if __name__ == '__main__':
         tic = time.time()
         with torch.no_grad():
             for i, data in enumerate(loader):
-                    print('Iter ' + str(i) + ' / ' + str(len(dataset)/100) + '_ ' + str(file))
-
+                    print('Iter ' + str(i) + ' / ' + str(len(loader)) + '_ ' + str(file))
 
                     ########### Data extraction ###########
                     bboxes = data

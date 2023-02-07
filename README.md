@@ -76,6 +76,18 @@ python main.py --Model "tr_S01-S03-S04_val_S02_resnet101_ibn_a_2_weight_custom_S
 
 **8. Training**
 
+First, the GT is needed to be processed by running: 
+
+```
+cd libs
+python extract_BB_AIC.py
+```
+IMPORTANT; the following variables must be set as: 
+
+input = 'gt'
+
+files = ['gt']
+
 For training run:
 ```
 python main_training.py --Mode training

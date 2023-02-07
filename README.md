@@ -68,7 +68,7 @@ python reid_feature_extraction.py --ConfigPath ../config/config_feature_extracti
 ```
 
 **7. Run Inference** 
-We provide the trained weights in https://drive.google.com/file/d/15o1I_W5cGwjWejlrv1PTyK4eBf5KND7j/view?usp=sharing  Download it and place it under *./results/*.
+We provide the trained weights in https://drive.google.com/file/d/1YL16nJi4p_Z1hQiPIXTTV9aa7pVOgEq2/view?usp=sharing  Download it and place it under *./results/*.
 The inference of the model can be done running:
 ```
 python main.py --Model "tr_S01-S03-S04_val_S02_resnet101_ibn_a_2_weight_custom_SGD_lr_0.01_BS_100_150_L_1_1FPR__2022-04-27 17-01-51" --Options data_test=validation/S02 input_test=mtsc file_test=mtsc_ssd512_tnt_roi_filt bs_test=2000 CUTTING=True PRUNING=True SPLITTING=True pre_computed_feats=True

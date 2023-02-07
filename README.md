@@ -35,8 +35,9 @@ This repo is evaluated on  the <u>AI City Challenge 2021dataset</u>. Trained in 
 Download the data from https://www.aicitychallenge.org/2021-track3-download/ and place the folder *AIC21_Track3_MTMC_Tracking/*  in *./datasets/*.
 
 
-**4. Download the vehicle ReID code**
-From https://github.com/LCFractal/AIC21-MTMC, download the ReID model (resnet101_ibn_a_2.pth) and place it under *reid/reid_model/* like:
+**4. Download the vehicle ReID model**
+
+From https://github.com/LCFractal/AIC21-MTMC, download the ReID model weights (resnet101_ibn_a_2.pth) and place it under *reid/reid_model/* like:
 
 >   * reid
 >     * reid_model 
@@ -49,20 +50,21 @@ Once downloaded the folder *AIC21_Track3_MTMC_Tracking/*, preprocess the data by
 
 To extract frames' images from .avi videos:                                                                
 ```
-python ./libs/preprocess_AIC.py
+cd libs
+python preprocess_AIC.py
 ```
 To extract and store BB images:                                                                
 ```
-python ./libs/extract_BB_AIC.py
+python extract_BB_AIC.py
 ```
 To filter MOT by ROIs:
 ```
-python ./libs/filter_mtmc.py
+python filter_mtmc.py
 ```
 **6. Extract and save ReID features (optional, to save computational time)**
 
 ```
-python ./li/reid_feature_extraction.py --ConfigPath ../config/config_feature_extraction.yaml
+python reid_feature_extraction.py --ConfigPath ../config/config_feature_extraction.yaml
 ```
 
 **7. Run Inference** 

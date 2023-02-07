@@ -1,6 +1,8 @@
 import os
 import time
 import yaml
+import sys
+sys.path.append('../')
 
 # matplotlib.use('tkAgg')
 import numpy as np
